@@ -1,0 +1,27 @@
+# The host for the Aegis Policy Engine API
+# The plugin will substitute this into the endpoint URL.
+aegis_host: "platform.aegis.pegasys.cloud"
+
+# An array of policy names to evaluate the repository against.
+# These will be substituted into the endpoint URL. Make sure these
+# match the policy names configured in your Aegis workspace. 
+policies:
+  - name: "docker"
+    # (Optional) Specify file patterns to send for this policy scan.
+    # If omitted, the plugin might default to sending a file manifest.
+    file_patterns:
+      - "**/Dockerfile"
+      - "**/*.dockerfile"
+  # - name: "sbom"
+  #   file_patterns:
+  #     - "**/build.gradle"
+  #     - "**/pom.xml"
+  #     - "**/package-lock.json"
+  # - name: "gitlab"
+  #   file_patterns:
+  #     - "**/.gitlab-ci.yml"
+
+# (Future-proofing) Configuration for the API endpoint.
+api_config:
+  # The endpoint template. {{variable}} will be replaced by the plugin.
+  endpoint: "https://{{aegis_host}}/api/eval/policies/{{policy_name}}"
